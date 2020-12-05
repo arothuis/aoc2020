@@ -1,5 +1,4 @@
 const { readFileSync } = require("fs");
-const isTrue = x => x === true;
 
 const countInWord = (letter, word) => 
     word.split("").filter(l => l === letter).length;
@@ -21,16 +20,14 @@ const solveA = path =>
     readFileSync(path, "utf-8")
         .split("\n")
         .map(l => parsePassLine(l))
-        .map(({a, b, letter, word}) => applyPolicyA(a, b, letter)(word))
-        .filter(isTrue)
+        .filter(({a, b, letter, word}) => applyPolicyA(a, b, letter)(word))
         .length;
 
 const solveB = path => 
         readFileSync(path, "utf-8")
             .split("\n")
             .map(l => parsePassLine(l))
-            .map(({a, b, letter, word}) => applyPolicyB(a, b, letter)(word))
-            .filter(isTrue)
+            .filter(({a, b, letter, word}) => applyPolicyB(a, b, letter)(word))
             .length;
 
 module.exports =  {
