@@ -7,6 +7,7 @@ See: https://adventofcode.com/2020
 
 ## Purpose
 1. Finish the daily exercises in JavaScript
-2. Apply a declarative style as much as possible (favor functions and expressions over statements and statefulness)
+2. Apply a declarative style as much as possible: favor functions and expressions over statements and statefulness
+    * The comma operator is allowed for binding variables in expressions
 3. Decompose into small, testable functions
 4. Extensively test the implementation, preferably using Test-Driven Development (red, green, refactor)
