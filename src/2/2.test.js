@@ -17,8 +17,8 @@ describe("Day 2", function () {
 
         specify("parse pass line", function () {
             const examples = [
-                ["1-2 l aaaa", { a: 1, b: 2, letter: "l", word: "aaaa" }],
-                ["2-10 b abba", {a: 2, b: 10, letter: "b", word: "abba" }],
+                ["1-2 l: aaaa", { a: 1, b: 2, letter: "l", word: "aaaa" }],
+                ["2-10 b: abba", {a: 2, b: 10, letter: "b", word: "abba" }],
             ];
 
             examples.forEach(([input, expected]) => {

@@ -4,15 +4,10 @@ const isTrue = x => x === true;
 const countInWord = (letter, word) => 
     word.split("").filter(l => l === letter).length;
 
-const parsePolicy = policy => (
-    [a, b] = policy.split("-"),
-        [parseInt(a, 10), parseInt(b, 10)]
-);
 const parsePassLine = line => (
-    [policy, letter, word] = line.split(" "),
-    [a, b] = parsePolicy(policy),
-        { a, b, letter: letter[0], word }
-)
+    [_, a, b, letter, word] = line.match(/^(\d+)-(\d+) (\w): (\w+)$/),
+        { a: parseInt(a, 10), b: parseInt(b, 10), letter, word }
+);
 
 const applyPolicyA = (min, max, letter) => word => (
     count = countInWord(letter, word), 
