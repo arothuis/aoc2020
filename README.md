@@ -7,4 +7,4 @@ See: https://adventofcode.com/2020
 1. Finish the daily exercises in JavaScript
 2. Apply a functional style as much as possible
 3. Decompose into small, testable functions
-4. Extensively test the implementation
+4. Extensively test the implementation, preferably using Test-Driven Development (red, green, refactor)
