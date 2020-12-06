@@ -1,12 +1,12 @@
 const { expect } = require("chai");
 const { solveA, solveB } = require("./x");
 
-describe("Day X", function () {
+describe("Day template", function () {
     context("helpers", function () {
       
     });
 
-    context("A", function () {
+    context.skip("A", function () {
         specify("solution", function () {
             const result = solveA(`${__dirname}/input.txt`);
             console.log(result);
@@ -14,7 +14,7 @@ describe("Day X", function () {
         });
     });
 
-    context("B", function () {
+    context.skip("B", function () {
         specify("solution", function () {
             const result = solveB(`${__dirname}/input.txt`);
             console.log(result);
