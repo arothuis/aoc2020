@@ -18,6 +18,7 @@ const solveB = path =>
 
 module.exports =  {
     countLetters,
+    countSimilarities,
     solveA,
     solveB,
 };

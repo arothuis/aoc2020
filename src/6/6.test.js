@@ -1,5 +1,5 @@
 const { expect } = require("chai");
-const { countLetters, solveA, solveB } = require("./6");
+const { countLetters, countSimilarities, solveA, solveB } = require("./6");
 
 describe("Day 6", function () {
     context("helpers", function () {
@@ -11,6 +11,17 @@ describe("Day 6", function () {
             ];
             examples.forEach(([initial, letter, expected]) => {
                 expect(countLetters(initial, letter)).to.deep.equal(expected);
+            });
+        });
+
+        specify("count similarities", function () {
+            const examples = [
+                [[["a", "b"], ["a"]], 1],
+                [[["a", "b"], ["a", "b"]], 2],
+                [[["a", "b"], ["c", "d"]], 0],
+            ];
+            examples.forEach(([group, expected]) => {
+                expect(countSimilarities(group)).to.equal(expected);
             });
         });
         
