@@ -1,7 +1,7 @@
 const { expect } = require("chai");
 const { solveA, solveB, boardingPass } = require("./5");
 
-describe("Day 5", function () {
+describe("Day 5 (alternative)", function () {
     context("helpers", function () {
         specify("boarding pass", function () {
             const examples = [
