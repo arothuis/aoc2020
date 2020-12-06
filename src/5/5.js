@@ -1,4 +1,4 @@
-const { readFileSync } = require("fs");
+const { linesFromFile } = require("../core");
 
 const halfRange = (a, b) => Math.round((b - a) / 2);
 
@@ -21,14 +21,12 @@ const boardingPass = p => (
 );
 
 const solveA = path => 
-    readFileSync(path, "utf-8")
-        .split("\n")
+    linesFromFile(path)
         .map(x => boardingPass(x)[2])
         .reduce((max, id) => id > max ? id : max, 0);
 
 const solveB = path => 
-    readFileSync(path, "utf-8")
-        .split("\n")
+    linesFromFile(path)
         .map(x => boardingPass(x)[2])
         .sort((a, b) => a - b)
         .filter((id, i, ids) => ids[i + 1] !== id + 1)[0] 

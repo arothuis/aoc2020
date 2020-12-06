@@ -1,19 +1,8 @@
 const { expect } = require("chai");
 
-const { 
-    readNumbersFromFile,
-    expenseReportA,
-    expenseReportB } = require("./1");
+const { expenseReportA, expenseReportB } = require("./1");
 
 describe("Day 1", function () {
-    context("helpers", function () {
-        specify("import numbers", function () {
-            const expected = [1721, 979, 366, 299, 675, 1456];
-            const numbers = readNumbersFromFile(`${__dirname}/example.txt`);
-            expect(numbers).to.deep.equal(expected);
-        });
-    });
-
     context("A", function () {
         specify("expense report: example input", function () {
             const result = expenseReportA(`${__dirname}/example.txt`);

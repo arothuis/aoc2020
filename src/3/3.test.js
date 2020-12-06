@@ -4,7 +4,7 @@ const { parseLand, getPath, plot, countTreesOnPath, solveA, solveB } = require("
 describe("Day 3", function () {
     context("helpers", function () {
         specify("parse land", function () {
-            const data = "...#\n#...\n.#.#";
+            const data = "...#\n#...\n.#.#".split("\n");
             const expected = [
                 [".", ".", ".", "#"],
                 ["#", ".", ".", "."],

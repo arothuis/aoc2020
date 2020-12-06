@@ -1,4 +1,4 @@
-const { readFileSync } = require("fs");
+const { linesFromFile } = require("../core");
 
 const countInWord = (letter, word) => 
     word.split("").filter(l => l === letter).length;
@@ -17,15 +17,13 @@ const applyPolicyB = (a, b, letter) => word =>
     (word[a - 1] === letter) !== (word[b - 1] === letter);
 
 const solveA = path => 
-    readFileSync(path, "utf-8")
-        .split("\n")
+    linesFromFile(path)
         .map(l => parsePassLine(l))
         .filter(({a, b, letter, word}) => applyPolicyA(a, b, letter)(word))
         .length;
 
 const solveB = path => 
-        readFileSync(path, "utf-8")
-            .split("\n")
+        linesFromFile(path)
             .map(l => parsePassLine(l))
             .filter(({a, b, letter, word}) => applyPolicyB(a, b, letter)(word))
             .length;

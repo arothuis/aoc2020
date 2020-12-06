@@ -1,9 +1,7 @@
 const { readFileSync } = require("fs");
+const { linesFromFile } = require("../core");
 
-const loadPassports = path => 
-    readFileSync(path, "utf-8")
-        .split("\n\n")
-        .map(parsePassport);
+const loadPassports = path => linesFromFile(path, "\n\n").map(parsePassport);
 
 const parseField = f => ([k, v] = f.split(":"), {[k]: v});
 const parseLine = l => l.split(" ").map(parseField).reduce((fs, f) => ({...fs, ...f}), {});
@@ -25,21 +23,11 @@ const validPassId = n => /^\d{9}$/.test(n);
 const allRequiredFields = ({ byr, iyr, eyr, hgt, hcl, ecl, pid}) => 
     hasAll(byr, iyr, eyr, hgt, hcl, ecl, pid);
 const isValid = ({ byr, iyr, eyr, hgt, hcl, ecl, pid }) => 
-    inRange(1920, 2002)(byr) 
-    && inRange(2010, 2020)(iyr) 
-    && inRange(2020, 2030)(eyr)
-    && validLength(hgt)
-    && validHairColor(hcl)
-    && validEyeColor(ecl)
-    && validPassId(pid);
+    inRange(1920, 2002)(byr) && inRange(2010, 2020)(iyr) && inRange(2020, 2030)(eyr)
+    && validLength(hgt) && validHairColor(hcl) && validEyeColor(ecl) && validPassId(pid);
 
-const solveA = path => loadPassports(path)
-        .filter(allRequiredFields)
-        .length;
-
-const solveB = path => loadPassports(path)
-        .filter(and(allRequiredFields, isValid))
-        .length;
+const solveA = path => loadPassports(path).filter(allRequiredFields).length;
+const solveB = path => loadPassports(path).filter(and(allRequiredFields, isValid)).length;
 
 module.exports =  {
     parsePassport,
