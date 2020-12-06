@@ -1,5 +1,5 @@
 const { expect } = require("chai");
-const { solveA, solveB, lowerHalf, upperHalf, findSeatRow, findSeatColumn, boardingPass } = require("./5");
+const { solveA, solveB, lowerHalf, upperHalf, boardingPass } = require("./5");
 
 describe("Day 5", function () {
     context("helpers", function () {
@@ -41,7 +41,7 @@ describe("Day 5", function () {
 
     context("A", function () {
         specify("solution", function () {
-            const result = solveA(`${__dirname}/input.txt`);
+            const result = solveA(`${__dirname}/../input.txt`);
             console.log(result);
             expect(result).to.equal(974);
         });
@@ -49,7 +49,7 @@ describe("Day 5", function () {
 
     context("B", function () {
         specify("solution", function () {
-            const result = solveB(`${__dirname}/input.txt`);
+            const result = solveB(`${__dirname}/../input.txt`);
             console.log(result);
             expect(result).to.equal(646);
         });

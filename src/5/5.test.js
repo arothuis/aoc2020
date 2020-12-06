@@ -18,7 +18,7 @@ describe("Day 5 (alternative)", function () {
 
     context("A", function () {
         specify("solution", function () {
-            const result = solveA(`${__dirname}/../input.txt`);
+            const result = solveA(`${__dirname}/input.txt`);
             console.log(result);
             expect(result).to.equal(974);
         });
@@ -26,7 +26,7 @@ describe("Day 5 (alternative)", function () {
 
     context("B", function () {
         specify("solution", function () {
-            const result = solveB(`${__dirname}/../input.txt`);
+            const result = solveB(`${__dirname}/input.txt`);
             console.log(result);
             expect(result).to.equal(646);
         });
