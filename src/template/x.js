@@ -1,5 +1,4 @@
-const { readFileSync } = require("fs");
-
+const { linesFromFile } = require("../core.js");
 
 const solveA = path => {};
 const solveB = path => {}
