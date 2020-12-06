@@ -7,7 +7,13 @@ See: https://adventofcode.com/2020
 
 ## Purpose
 1. Finish the daily exercises in JavaScript
-2. Apply a declarative style as much as possible: favor functions and expressions over statements and statefulness
-    * Although in other cases frowned upon, we allow the comma operator for binding variables in expressions
+2. Apply a declarative style as much as possible
 3. Decompose into small, testable functions
 4. Extensively test the implementation, preferably using Test-Driven Development (red, green, refactor)
+
+## Declarative JavaScript
+* Prefer functions and expressions over statements and statefulness
+* Prefer const over let (no re-assignability)
+* Although in other cases frowned upon, we allow the comma operator for binding variables in expressions
+* Within expressions the use of const/let is not necessary, otherwise they are
+* Fall back to a more imperative style if we run into JavaScript's limitations (recursion depth, etc.) or declaritivity is too inconvenient
