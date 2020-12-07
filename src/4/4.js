@@ -1,4 +1,3 @@
-const { readFileSync } = require("fs");
 const { linesFromFile } = require("../core");
 
 const loadPassports = path => linesFromFile(path, "\n\n").map(parsePassport);
