@@ -1,5 +1,5 @@
 const { expect } = require("chai");
-const { countInWord, applyPolicyA, parsePassLine, solveA, applyPolicyB, solveB } = require("./2");
+const { countInWord, policyA, parsePassLine, solveA, policyB, solveB } = require("./2");
 
 describe("Day 2", function () {
     context("helpers", function () {
@@ -31,8 +31,8 @@ describe("Day 2", function () {
                 ["l", 1, 2, "lla", true],
                 ["l", 1, 2, "lll", false],
             ];
-            examples.forEach(([letter, min, max, word, expected]) => {
-                expect(applyPolicyA(min, max, letter)(word)).to.equal(expected);
+            examples.forEach(([letter, a, b, word, expected]) => {
+                expect(policyA({ letter, a, b, word })).to.equal(expected);
             });
         });
 
@@ -43,8 +43,8 @@ describe("Day 2", function () {
                 ["l", 1, 2, "lla", false],
                 ["l", 1, 2, "lll", false],
             ];
-            examples.forEach(([letter, min, max, word, expected]) => {
-                expect(applyPolicyB(min, max, letter)(word)).to.equal(expected);
+            examples.forEach(([letter, a, b, word, expected]) => {
+                expect(policyB({ letter, a, b, word })).to.equal(expected);
             });
         });
     });
