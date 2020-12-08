@@ -1,4 +1,4 @@
-const { linesFromFile } = require("../core.js");
+const { linesFromFile } = require("../src/core.js");
 
 const solveA = path => {};
 const solveB = path => {};
