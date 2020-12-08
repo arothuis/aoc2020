@@ -2,7 +2,10 @@ const { linesFromFile } = require("../core");
 
 const loadPassports = path => linesFromFile(path, "\n\n").map(parsePassport);
 
-const parseField = f => ([k, v] = f.split(":"), {[k]: v});
+const parseField = f => {
+    const [k, v] = f.split(":");
+    return {[k]: v}
+};
 const parseLine = l => l.split(" ").map(parseField).reduce((fs, f) => ({...fs, ...f}), {});
 const parsePassport = p => p.split("\n").map(parseLine).reduce((fs, f) => ({...fs, ...f}), {});
 
@@ -12,12 +15,13 @@ const inRange = (min, max) => n => {
     const num = parseInt(n, 10);
     return num >= min && num <= max;
 };
-const validLength = n => (
-    num = n.slice(0, -2), q = n.slice(-2),
-        q === "cm" ? inRange(150, 193)(n) :
-        q === "in" ? inRange(59, 76)(n) 
-                   : false
-);
+const validLength = n => {
+    const num = n.slice(0, -2); 
+    const q = n.slice(-2);
+    return q === "cm" ? inRange(150, 193)(num) :
+           q === "in" ? inRange(59, 76)(num) 
+                      : false
+};
 const validHairColor = n => /^\#[0-9a-ff]{6}$/.test(n);
 const validEyeColor = n => ["amb", "blu", "brn", "gry", "grn", "hzl", "oth"].includes(n);
 const validPassId = n => /^\d{9}$/.test(n);
