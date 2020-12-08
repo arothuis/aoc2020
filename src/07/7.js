@@ -5,9 +5,6 @@ const { linesFromFile } = require("../core.js");
 const rulesFromFile = path => linesFromFile(path).map(parseRule).reduce(toObject, {});
 const toObject = (a, b) => Object.assign(b, a);
 
-const REGEX_CONTAINER = /([\w\s]+) bags/;
-const REGEX_CONTENTS = /(\d+) ([\w\s]+) bags?/g
-
 const parseRuleContents = cs => cs === null ? {} 
     : cs.map(c => {
         const [number, a, b] = c.split(" "); 
@@ -15,8 +12,8 @@ const parseRuleContents = cs => cs === null ? {}
     }).reduce(toObject, {});
 const parseRule = r => {
     const [containerTokens, contentTokens] = r.split(" contain ");
-    const [_, container] = containerTokens.match(REGEX_CONTAINER);
-    return  { [container]: parseRuleContents(contentTokens.match(REGEX_CONTENTS)) }
+    const [_, container] = containerTokens.match(/([\w\s]+) bags/);
+    return  { [container]: parseRuleContents(contentTokens.match(/(\d+) ([\w\s]+) bags?/g)) }
 };
 
 const tree = (name, rules, n = 1) => {
