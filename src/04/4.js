@@ -8,7 +8,10 @@ const parsePassport = p => p.split("\n").map(parseLine).reduce((fs, f) => ({...f
 
 const and = (p1, p2) => x => p1(x) && p2(x);
 const hasAll = (...ps) => ps.reduce((a, b) => a && b !== undefined, true);
-const inRange = (min, max) => n => (num = parseInt(n, 10), num >= min && num <= max);
+const inRange = (min, max) => n => {
+    const num = parseInt(n, 10);
+    return num >= min && num <= max;
+};
 const validLength = n => (
     num = n.slice(0, -2), q = n.slice(-2),
         q === "cm" ? inRange(150, 193)(n) :

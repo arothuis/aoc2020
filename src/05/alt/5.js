@@ -13,12 +13,11 @@ const parseColumn = (range, letter) =>
 const findSeatRow = p => p.split("").slice(0, 7).reduce(parseRow, [0, 127])[0];
 const findSeatColumn = p => p.split("").slice(7).reduce(parseColumn, [0, 7])[0]
 
-const boardingPass = p => (
-    row = findSeatRow(p), 
-    column = findSeatColumn(p), 
-    id = row * 8 + column,
-    [row, column, id]
-);
+const boardingPass = p => {
+    const row = findSeatRow(p);
+    const column = findSeatColumn(p);
+    return [row, column, row * 8 + column];
+};
 
 const solveA = path => 
     linesFromFile(path)
