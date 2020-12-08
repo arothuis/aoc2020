@@ -13,6 +13,6 @@ See: https://adventofcode.com/2020
 
 ## Declarative JavaScript
 * Prefer functions and expressions over statements and statefulness
-* Prefer const over let (no re-assignability)
+* Fall back to a more imperative style if we run into JavaScript's limitations (recursion depth, etc.) or declarativity is too inconvenient for current or future puzzles
+* Prefer `const` over `let` (no re-assignability)
 * Although more declarative, the use of the comma operator is discouraged as the resulting variable scoping is problematic
-* Fall back to a more imperative style if we run into JavaScript's limitations (recursion depth, etc.) or declaritivity is too inconvenient for current or future puzzles
