@@ -5,7 +5,10 @@ const linesFromFile = (path, delim = "\n") =>
 const numbersFromFile = (path, delim = "\n", base = 10) => 
     linesFromFile(path, delim).map(n => parseInt(n, base)); 
 
+const combinations = xs => xs.flatMap(x => xs.map(y => [x, y]));
+
 module.exports = {
     linesFromFile,
     numbersFromFile,
+    combinations,
 };
