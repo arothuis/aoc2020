@@ -28,6 +28,7 @@ const solveB = (path, target) => findWeakness(target, numbersFromFile(path));
 
 module.exports =  {
     numbersForSum,
+    findMissingSum,
     findWeakness,
     solveA,
     solveB,

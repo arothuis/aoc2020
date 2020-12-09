@@ -1,5 +1,5 @@
 const { expect } = require("chai");
-const { numbersForSum, findWeakness, solveA, solveB } = require("./9");
+const { numbersForSum, findMissingSum, findWeakness, solveA, solveB } = require("./9");
 
 describe("Day 9", function () {
     context("helpers", function () {
@@ -12,6 +12,18 @@ describe("Day 9", function () {
             examples.forEach(([target, numbers, expected]) => {
                 const result = numbersForSum(target, numbers);
                 expect(result).to.deep.equal(expected);
+            });
+        });
+
+        specify("find missing sum", function () {
+            const examples = [
+                [[1, 2, 3, 5, 6, 7], 2, 6],
+                [[1, 2, 3, 4, 5, 10], 3, 10],
+                [[1, 2, 3, 5, 8], 2, null]
+            ];
+            examples.forEach(([numbers, lookback, expected]) => {
+                const result = findMissingSum(numbers, lookback);
+                expect(result).to.equal(expected);
             });
         });
 
