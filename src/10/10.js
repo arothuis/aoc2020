@@ -5,10 +5,10 @@ const nextOptions = (a, js) => [a + 1, a + 2, a + 3].filter(o => js.has(o));
 
 const solveA = path => {
     const joltages = new Set(numbersFromFile(path));
+    const diffs = [0, 0, 1];
+    
     let current = 0;
     let options = nextOptions(current, joltages);
-    const diffs = [0, 0, 1];
-
     while (options.length > 0) {
         diffs[options[0] - current - 1]++;
         current = options[0];
@@ -19,25 +19,21 @@ const solveA = path => {
 };
 
 const countTree = (js, n = 0, seen = {}) => {
-    if (seen[n] !== undefined) {
+    const options = nextOptions(n, js);
+    if (seen[n]) {
         return seen[n];
     }
-    
-    const options = nextOptions(n, js);
+
     if (options.length === 0) {
         seen[n] = 1;
         return seen[n];
     }
-
+    
     seen[n] = options.reduce((acc, x) => acc + countTree(js, x, seen), 0);
     
     return seen[n];
 };
-
-const solveB = path => {
-    const joltages = new Set(numbersFromFile(path));
-    return countTree(joltages);
-};
+const solveB = path => countTree(new Set(numbersFromFile(path)));
 
 module.exports =  {
     solveA,
