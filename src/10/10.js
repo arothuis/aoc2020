@@ -1,37 +1,28 @@
-// TODO: make less imperative
 const { numbersFromFile } = require("../core.js");
 
 const nextOptions = (a, js) => [a + 1, a + 2, a + 3].filter(o => js.has(o));
-
-const solveA = path => {
-    const joltages = new Set(numbersFromFile(path));
-    const diffs = [0, 0, 1];
-    
-    let current = 0;
-    let options = nextOptions(current, joltages);
-    while (options.length > 0) {
-        diffs[options[0] - current - 1]++;
-        current = options[0];
-        options = nextOptions(current, joltages);
-    }
-
-    return diffs[0] * diffs[2];
-};
-
-const countTree = (js, n = 0, seen = {}) => {
+const countTree = (js, n = 0, memo = {}) => {
     const options = nextOptions(n, js);
-    if (seen[n]) {
-        return seen[n];
+    if (memo[n]) {
+        return memo[n];
     }
 
     if (options.length === 0) {
-        seen[n] = 1;
-        return seen[n];
+        memo[n] = 1;
+        return memo[n];
     }
     
-    seen[n] = options.reduce((acc, x) => acc + countTree(js, x, seen), 0);
+    memo[n] = options.reduce((acc, x) => acc + countTree(js, x, memo), 0);
     
-    return seen[n];
+    return memo[n];
+};
+
+const solveA = path => {
+    const [j1, _, j3] = numbersFromFile(path)
+        .sort((a, b) => a - b)
+        .map((a, i, as) => a - (as[i - 1] || 0))
+        .reduce((count, a) => [...count.slice(0, a - 1), count[a - 1] + 1, ...count.slice(a)], [0, 0, 1]);
+    return j1 * j3;
 };
 const solveB = path => countTree(new Set(numbersFromFile(path)));
 
