@@ -13,20 +13,20 @@ describe("Day 11", function () {
                 ["..L..\n..L..\n..#..", [2, 0], 4, countFarAdjacent, "#"],
                 ["..#..\n.....\n#.#.#", [2, 0], 3, countFarAdjacent, "#"],
             ];
-            examples.forEach(([grid, [x, y], maxAdjacent, f, expected]) => {
+            examples.forEach(([grid, [x, y], maxAdjacent, countAdjacent, expected]) => {
                 const spots = grid.split("\n").map(x => x.split(""));
-                const result = evolve(spots, x, y, maxAdjacent, f);
+                const result = evolve(spots, x, y, maxAdjacent, countAdjacent);
                 expect(result).to.equal(expected);
             });
         });
 
         specify("evolve grid", function () {
             const examples = [
-                ["LLL\nLLL\nLLL", "###\n###\n###"],
+                ["LLL\nLLL\nLLL", 3, countCloseAdjacent, "###\n###\n###", ],
             ];
-            examples.forEach(([grid, expected]) => {
+            examples.forEach(([grid, maxAdjacent, countAdjacent, expected]) => {
                 const spots = grid.split("\n").map(x => x.split(""));
-                const result = nextStep(spots);
+                const result = nextStep(spots, maxAdjacent, countAdjacent);
                 expect(result).to.deep.equal(expected.split("\n").map(x => x.split("")));
             });
         });

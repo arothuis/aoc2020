@@ -32,33 +32,17 @@ const evolve = (spots, x, y, maxAdjacent, countAdjacent) => {
     return spot;
 };
 
-const evolveB = (spots, x, y) => {
-    const spot = getSpot(spots, x, y);
-    const adjacent = countFarAdjacent(spots, x, y);
-
-    if (isEmpty(spot) && adjacent === 0) {
-        return "#";
-    }
-
-    if (isOccupied(spot) && adjacent > 4) {
-        return "L";
-    }
-
-    return spot;
-};
-
-const nextStep = spots => spots.map((r, y) => r.map((_, x) => evolve(spots, x, y, 3, countCloseAdjacent)));
-const nextStepB = spots => spots.map((r, y) => r.map((_, x) => evolveB(spots, x, y)));
+const nextStep = (spots, maxAdjacent, countAdjacent) => spots.map((r, y) => r.map((_, x) => evolve(spots, x, y, maxAdjacent, countAdjacent)));
 const stringGrid = spots => spots.map(r => r.join("")).join("\n");
 
 const solveA = path => {
     const grid = linesFromFile(path).map(l => l.split(""));
     let previous = grid;
-    let next = nextStep(previous);
+    let next = nextStep(previous, 3, countCloseAdjacent);
 
     while (stringGrid(next) !== stringGrid(previous)) {
         previous = next;
-        next = nextStep(previous);
+        next = nextStep(previous, 3, countCloseAdjacent);
     }
 
     return next.flat().filter(isOccupied).length;
@@ -66,11 +50,11 @@ const solveA = path => {
 const solveB = path => {
     const grid = linesFromFile(path).map(l => l.split(""));
     let previous = grid;
-    let next = nextStepB(previous);
+    next = nextStep(previous, 4, countFarAdjacent);
 
     while (stringGrid(next) !== stringGrid(previous)) {
         previous = next;
-        next = nextStepB(previous);
+        next = nextStep(previous, 4, countFarAdjacent);
     }
 
     return next.flat().filter(isOccupied).length;
