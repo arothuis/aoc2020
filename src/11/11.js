@@ -4,27 +4,23 @@ const { linesFromFile } = require("../core.js");
 
 const DIRECTIONS = [[-1, -1], [-1, 0], [-1, 1], [0, -1], [0, 1], [1,-1], [1, 0], [1, 1]];
 
-const isEmpty = s => s === "L";
-const isOccupied = s => s === "#";
-const isFloor = s => s === ".";
-
 const getSpot = (spots, x, y) => spots[y] ? spots[y][x] : undefined;
 const getNearestSeat = (spots, x, y, dx, dy) => {
     const spot = getSpot(spots, x, y);
-    return !isFloor(spot) ? spot : getNearestSeat(spots, x + dx, y + dy, dx, dy);
+    return spot !== "." ? spot : getNearestSeat(spots, x + dx, y + dy, dx, dy);
 };
 
 const countCloseAdjacent = (spots, x, y) => DIRECTIONS
-    .reduce((count, [dx, dy]) => isOccupied(getSpot(spots, x + dx, y + dy)) ? count + 1 : count, 0);
+    .reduce((count, [dx, dy]) => (getSpot(spots, x + dx, y + dy) === "#") ? count + 1 : count, 0);
 const countFarAdjacent = (spots, x, y) => DIRECTIONS
-    .reduce((count, [dx, dy]) => isOccupied(getNearestSeat(spots, x + dx, y + dy, dx, dy)) ? count + 1 : count, 0)
+    .reduce((count, [dx, dy]) => (getNearestSeat(spots, x + dx, y + dy, dx, dy) === "#") ? count + 1 : count, 0)
 
 const evolve = (spots, x, y, maxAdjacent, countAdjacent) => {
     const spot = getSpot(spots, x, y);
     const adjacent = countAdjacent(spots, x, y);
 
-    return isEmpty(spot) && adjacent === 0 ? "#" :
-        isOccupied(spot) && adjacent > maxAdjacent ? "L" : spot;
+    return spot === "L" && adjacent === 0 ? "#" :
+        spot === "#" && adjacent > maxAdjacent ? "L" : spot;
 };
 
 const nextStep = (spots, maxAdjacent, countAdjacent) => 
@@ -40,7 +36,7 @@ const solve = (path, maxAdjacent, countAdjacent) => {
         next = nextStep(previous, maxAdjacent, countAdjacent);
     }
 
-    return next.flat().filter(isOccupied).length;
+    return next.flat().filter(s => s === "#").length;
 };
 
 module.exports =  {
