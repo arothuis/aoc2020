@@ -1,3 +1,5 @@
+// Possible refactoring: use flat array instead of nested array for grid implementation
+// Interesting experiment for later: try out a (windowed) bitboard implementation
 const { linesFromFile } = require("../core.js");
 
 const DIRECTIONS = [[-1, -1], [-1, 0], [-1, 1], [0, -1], [0, 1], [1,-1], [1, 0], [1, 1]];
