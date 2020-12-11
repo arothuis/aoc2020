@@ -1,18 +1,21 @@
 const { expect } = require("chai");
-const { evolve, nextStep, solveA, solveB, countFarAdjacent } = require("./11");
+const { evolve, nextStep, countCloseAdjacent, countFarAdjacent, solveA, solveB, } = require("./11");
 
 describe("Day 11", function () {
     context("helpers", function () {
         specify("evolve a seat in a grid of spots", function () {
             const examples = [
-                ["LLL\nLLL\nLLL", [1, 1], "#"],
-                ["LLL\nL.L\nLLL", [1, 1], "."],
-                ["LLL\nL#L\nLLL", [1, 1], "#"],
-                ["LL#\n###\nL#L", [1, 1], "L"],
+                ["LLL\nLLL\nLLL", [1, 1], 3, countCloseAdjacent, "#"],
+                ["LLL\nL.L\nLLL", [1, 1], 3, countCloseAdjacent, "."],
+                ["LLL\nL#L\nLLL", [1, 1], 3, countCloseAdjacent, "#"],
+                ["LL#\n###\nL#L", [1, 1], 3, countCloseAdjacent, "L"],
+                ["..L..\n.....\n..#..", [2, 0], 4, countFarAdjacent, "L"],
+                ["..L..\n..L..\n..#..", [2, 0], 4, countFarAdjacent, "#"],
+                ["..#..\n.....\n#.#.#", [2, 0], 3, countFarAdjacent, "#"],
             ];
-            examples.forEach(([grid, [x, y], expected]) => {
+            examples.forEach(([grid, [x, y], maxAdjacent, f, expected]) => {
                 const spots = grid.split("\n").map(x => x.split(""));
-                const result = evolve(spots, x, y);
+                const result = evolve(spots, x, y, maxAdjacent, f);
                 expect(result).to.equal(expected);
             });
         });
