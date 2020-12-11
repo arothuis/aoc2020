@@ -1,5 +1,5 @@
 const { expect } = require("chai");
-const { evolve, nextStep, countCloseAdjacent, countFarAdjacent, solveA, solveB, } = require("./11");
+const { evolve, nextStep, countCloseAdjacent, countFarAdjacent, solve } = require("./11");
 
 describe("Day 11", function () {
     context("helpers", function () {
@@ -56,13 +56,13 @@ describe("Day 11", function () {
 
     context("A", function () {
         specify("example", function () {
-            const result = solveA(`${__dirname}/example.txt`);
+            const result = solve(`${__dirname}/example.txt`, 3, countCloseAdjacent);
             console.log(result);
             expect(result).to.equal(37);
         });
 
         specify("solution", function () {
-            const result = solveA(`${__dirname}/input.txt`);
+            const result = solve(`${__dirname}/input.txt`, 3, countCloseAdjacent);
             console.log(result);
             expect(result).to.equal(2303);
         });
@@ -70,12 +70,12 @@ describe("Day 11", function () {
 
     context("B", function () {
         specify("example", function () {
-            const result = solveB(`${__dirname}/example.txt`, 127);
+            const result = solve(`${__dirname}/example.txt`, 4, countFarAdjacent);
             expect(result).to.equal(26);
         });
 
         specify("solution", function () {
-            const result = solveB(`${__dirname}/input.txt`);
+            const result = solve(`${__dirname}/input.txt`, 4, countFarAdjacent);
             console.log(result);
             expect(result).to.equal(2057);
         });

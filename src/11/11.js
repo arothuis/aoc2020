@@ -32,38 +32,27 @@ const evolve = (spots, x, y, maxAdjacent, countAdjacent) => {
     return spot;
 };
 
-const nextStep = (spots, maxAdjacent, countAdjacent) => spots.map((r, y) => r.map((_, x) => evolve(spots, x, y, maxAdjacent, countAdjacent)));
+const nextStep = (spots, maxAdjacent, countAdjacent) => 
+    spots.map((r, y) => r.map((_, x) => evolve(spots, x, y, maxAdjacent, countAdjacent)));
 const stringGrid = spots => spots.map(r => r.join("")).join("\n");
 
-const solveA = path => {
+const solve = (path, maxAdjacent, countAdjacent) => {
     const grid = linesFromFile(path).map(l => l.split(""));
     let previous = grid;
     let next = nextStep(previous, 3, countCloseAdjacent);
 
     while (stringGrid(next) !== stringGrid(previous)) {
         previous = next;
-        next = nextStep(previous, 3, countCloseAdjacent);
+        next = nextStep(previous, maxAdjacent, countAdjacent);
     }
 
     return next.flat().filter(isOccupied).length;
 };
-const solveB = path => {
-    const grid = linesFromFile(path).map(l => l.split(""));
-    let previous = grid;
-    next = nextStep(previous, 4, countFarAdjacent);
 
-    while (stringGrid(next) !== stringGrid(previous)) {
-        previous = next;
-        next = nextStep(previous, 4, countFarAdjacent);
-    }
-
-    return next.flat().filter(isOccupied).length;
-};
 module.exports =  {
     evolve,
     nextStep,
     countCloseAdjacent,
     countFarAdjacent,
-    solveA,
-    solveB,
+    solve,
 };
