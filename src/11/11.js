@@ -18,11 +18,10 @@ const countFarAdjacent = (spots, x, y) => DIRECTIONS
 const evolve = (spots, x, y, maxAdjacent, countAdjacent) => {
     const spot = getSpot(spots, x, y);
     const adjacent = countAdjacent(spots, x, y);
-
     return spot === "L" && adjacent === 0 ? "#" :
         spot === "#" && adjacent > maxAdjacent ? "L" : spot;
 };
-const nextStep = (maxAdjacent, countAdjacent) => (spots) => 
+const nextStep = (maxAdjacent, countAdjacent) => spots => 
     spots.map((r, y) => r.map((_, x) => evolve(spots, x, y, maxAdjacent, countAdjacent)));
 
 const run = (grid, step) => {
