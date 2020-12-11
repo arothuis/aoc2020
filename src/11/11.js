@@ -21,27 +21,19 @@ const evolve = (spots, x, y, maxAdjacent, countAdjacent) => {
     const spot = getSpot(spots, x, y);
     const adjacent = countAdjacent(spots, x, y);
 
-    if (isEmpty(spot) && adjacent === 0) {
-        return "#";
-    }
-
-    if (isOccupied(spot) && adjacent > maxAdjacent) {
-        return "L";
-    }
-
-    return spot;
+    return isEmpty(spot) && adjacent === 0 ? "#" :
+        isOccupied(spot) && adjacent > maxAdjacent ? "L" : spot;
 };
 
 const nextStep = (spots, maxAdjacent, countAdjacent) => 
     spots.map((r, y) => r.map((_, x) => evolve(spots, x, y, maxAdjacent, countAdjacent)));
-const stringGrid = spots => spots.map(r => r.join("")).join("\n");
 
 const solve = (path, maxAdjacent, countAdjacent) => {
     const grid = linesFromFile(path).map(l => l.split(""));
     let previous = grid;
     let next = nextStep(previous, 3, countCloseAdjacent);
 
-    while (stringGrid(next) !== stringGrid(previous)) {
+    while (next.toString() !== previous.toString()) {
         previous = next;
         next = nextStep(previous, maxAdjacent, countAdjacent);
     }
