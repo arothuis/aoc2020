@@ -26,7 +26,7 @@ describe("Day 11", function () {
             ];
             examples.forEach(([grid, maxAdjacent, countAdjacent, expected]) => {
                 const spots = grid.split("\n").map(x => x.split(""));
-                const result = nextStep(spots, maxAdjacent, countAdjacent);
+                const result = nextStep(maxAdjacent, countAdjacent)(spots);
                 expect(result).to.deep.equal(expected.split("\n").map(x => x.split("")));
             });
         });

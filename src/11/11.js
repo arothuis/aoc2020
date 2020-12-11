@@ -22,21 +22,17 @@ const evolve = (spots, x, y, maxAdjacent, countAdjacent) => {
     return spot === "L" && adjacent === 0 ? "#" :
         spot === "#" && adjacent > maxAdjacent ? "L" : spot;
 };
-
-const nextStep = (spots, maxAdjacent, countAdjacent) => 
+const nextStep = (maxAdjacent, countAdjacent) => (spots) => 
     spots.map((r, y) => r.map((_, x) => evolve(spots, x, y, maxAdjacent, countAdjacent)));
+
+const run = (grid, step) => {
+    const next = step(grid);
+    return next.toString() === grid.toString() ? next : run(next, step);
+};
 
 const solve = (path, maxAdjacent, countAdjacent) => {
     const grid = linesFromFile(path).map(l => l.split(""));
-
-    let previous = grid;
-    let next = nextStep(previous, maxAdjacent, countCloseAdjacent);
-    while (next.toString() !== previous.toString()) {
-        previous = next;
-        next = nextStep(previous, maxAdjacent, countAdjacent);
-    }
-
-    return next.flat().filter(s => s === "#").length;
+    return run(grid, nextStep(maxAdjacent, countAdjacent)).flat().filter(s => s === "#").length;
 };
 
 module.exports =  {
