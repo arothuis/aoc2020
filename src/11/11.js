@@ -11,9 +11,9 @@ const getNearestSeat = (spots, x, y, dx, dy) => {
 };
 
 const countCloseAdjacent = (spots, x, y) => DIRECTIONS
-    .reduce((count, [dx, dy]) => (getSpot(spots, x + dx, y + dy) === "#") ? count + 1 : count, 0);
+    .reduce((count, [dx, dy]) => getSpot(spots, x + dx, y + dy) === "#" ? count + 1 : count, 0);
 const countFarAdjacent = (spots, x, y) => DIRECTIONS
-    .reduce((count, [dx, dy]) => (getNearestSeat(spots, x + dx, y + dy, dx, dy) === "#") ? count + 1 : count, 0)
+    .reduce((count, [dx, dy]) => getNearestSeat(spots, x + dx, y + dy, dx, dy) === "#" ? count + 1 : count, 0);
 
 const evolve = (spots, x, y, maxAdjacent, countAdjacent) => {
     const spot = getSpot(spots, x, y);
@@ -28,9 +28,9 @@ const nextStep = (spots, maxAdjacent, countAdjacent) =>
 
 const solve = (path, maxAdjacent, countAdjacent) => {
     const grid = linesFromFile(path).map(l => l.split(""));
-    let previous = grid;
-    let next = nextStep(previous, 3, countCloseAdjacent);
 
+    let previous = grid;
+    let next = nextStep(previous, maxAdjacent, countCloseAdjacent);
     while (next.toString() !== previous.toString()) {
         previous = next;
         next = nextStep(previous, maxAdjacent, countAdjacent);
