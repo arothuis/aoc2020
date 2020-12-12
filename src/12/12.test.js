@@ -14,10 +14,10 @@ describe("Day 12", function () {
                 [[0, 0, "E"], MOVES_A.R(270), [0, 0, "N"]],
                 [[0, 0, "E"], MOVES_A.R(360), [0, 0, "E"]],
                 [[0, 0, "E"], MOVES_A.F(10), [10, 0, "E"]],
-                [[0, 0, "E"], MOVES_A.N(10), [0, 10, "E"]],
-                [[0, 0, "E"], MOVES_A.E(10), [10, 0, "E"]],
-                [[0, 0, "E"], MOVES_A.S(10), [0, -10, "E"]],
-                [[0, 0, "E"], MOVES_A.W(10), [-10, 0, "E"]],
+                [[0, 0, "E"], MOVES_A.NESW(10, "N"), [0, 10, "E"]],
+                [[0, 0, "E"], MOVES_A.NESW(10, "E"), [10, 0, "E"]],
+                [[0, 0, "E"], MOVES_A.NESW(10, "S"), [0, -10, "E"]],
+                [[0, 0, "E"], MOVES_A.NESW(10, "W"), [-10, 0, "E"]],
             ];
             examples.forEach(([current, move, expected]) => {
                 const result = move(current);
