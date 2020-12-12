@@ -1,7 +1,7 @@
 const { linesFromFile } = require("../core.js");
 
 const DIRECTIONS = { N: {x: 0, y: 1, i: 0}, E: {x: 1, y: 0, i: 1}, S: {x: 0, y: -1, i: 2}, W: {x: -1, y: 0, i: 3} };
-const MOVES = {
+const MOVES_A = {
     N: v => ([x, y, d]) => [x, y + v, d], 
     E: v => ([x, y, d]) => [x + v, y, d],
     S: v => ([x, y, d]) => [x, y - v, d],
@@ -10,7 +10,7 @@ const MOVES = {
     R: v => ([x, y, d]) => [x, y, Object.keys(DIRECTIONS)[(4 + DIRECTIONS[d].i + v / 90) % 4]],
     F: v => ([x, y, d]) => [DIRECTIONS[d].x * v + x, DIRECTIONS[d].y * v + y, d],
 };
-const rotate = (x, y, v) => v === 90 ? [-y, x] : v === 180 ? [-x, -y] : v === 270 ? [y, -x] : [x, y];
+const rotate = (x, y, v) => v === 90 ? [-y, x] : v === 180 ? [-x, -y] : [y, -x];
 const MOVES_B = {
     N: v => ([sx, sy, wx, wy]) => [sx, sy, wx, wy + v], 
     E: v => ([sx, sy, wx, wy]) => [sx, sy, wx + v, wy],
@@ -23,7 +23,7 @@ const MOVES_B = {
 
 const solveA = path => {
     const [x, y] = linesFromFile(path)
-        .map(l => MOVES[l[0]](+l.slice(1)))
+        .map(l => MOVES_A[l[0]](+l.slice(1)))
         .reduce((current, m) => m(current), [0, 0, "E"]);
     return Math.abs(x) + Math.abs(y);
 };
@@ -35,7 +35,7 @@ const solveB = path => {
 };
 
 module.exports =  {
-    MOVES,
+    MOVES_A,
     solveA,
     solveB,
 };
