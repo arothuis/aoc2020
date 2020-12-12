@@ -1,5 +1,5 @@
 const { expect } = require("chai");
-const { MOVES_A, solveA, solveB } = require("./12");
+const { MOVES_A, MOVES_B, solve } = require("./12");
 
 describe("Day 12", function () {
     context("helpers", function () {
@@ -28,13 +28,13 @@ describe("Day 12", function () {
 
     context("A", function () {
         specify("example", function () {
-            const result = solveA(`${__dirname}/example.txt`);
+            const result = solve(`${__dirname}/example.txt`, MOVES_A, [0, 0, "E"]);
             console.log(result);
             expect(result).to.equal(25);
         });
 
         specify("solution", function () {
-            const result = solveA(`${__dirname}/input.txt`);
+            const result = solve(`${__dirname}/input.txt`, MOVES_A, [0, 0, "E"]);
             console.log(result);
             expect(result).to.equal(1533);
         });
@@ -42,12 +42,12 @@ describe("Day 12", function () {
 
     context("B", function () {
         specify("example", function () {
-            const result = solveB(`${__dirname}/example.txt`);
+            const result = solve(`${__dirname}/example.txt`, MOVES_B, [0, 0, 10, 1]);
             expect(result).to.equal(286);
         });
 
         specify("solution", function () {
-            const result = solveB(`${__dirname}/input.txt`);
+            const result = solve(`${__dirname}/input.txt`, MOVES_B, [0, 0, 10, 1]);
             console.log(result);
             expect(result).to.equal(25235);
         });
