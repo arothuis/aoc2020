@@ -30,6 +30,9 @@ describe("Day 13", function () {
             const result = solveB(`${__dirname}/input.txt`);
             console.log(result);
             expect(result).to.equal(1118684865113056);
+            
+            // Attempted Chinese Remainder Theory, 
+            // seems like an off-by-one error
             expect(result).not.to.equal(1118684865113266);
         });
     });
