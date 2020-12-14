@@ -1,53 +1,39 @@
 const { linesFromFile, powerset } = require("../core.js");
 
 const toBinaryString = x => parseInt(x, 10).toString(2).padStart(36, "0").split("");
+const possibleXs = ns => powerset(ns.map((n, i) => n === "X" ? i : false).filter(x => x !== false));
 
 const applyMaskA = (mask, ns) => parseInt(ns.map((n, i) => mask[i] !== "X" ? mask[i] : n).join(""), 2);
-const processLineA = ({ mask, mem }, l) => {
-    const [key, value] = l.split(" = ");
-    if (key === "mask") {
-        return { mask: value.split(""), mem };
-    }
-
-    const index = parseInt(key.slice(4, -1), 10);
-    mem[index] = applyMaskA(mask, toBinaryString(value));
-
-    return { mask, mem };
-};
-
-const possibleXs = ns => powerset(ns.map((n, i) => n === "X" ? i : false).filter(x => x !== false));
 const applyMaskB = (mask, index) => possibleXs(mask).map(xs => {
     const nextIndex = index.map((n, i) => mask[i] === "0" ? n : mask[i]);
     xs.forEach(x => nextIndex[x] = 1);
     return parseInt(nextIndex.join("").replace(/X/g, 0), 2);
 });
 
-const processLineB = ({ mask, mem }, l) => {
-    const [key, value] = l.split(" = ");
-    if (key === "mask") {
-        return { mask: value.split(""), mem };
-    }
-
-    const index = parseInt(key.slice(4, -1), 10);
-    
+const decoderV1 = (mask, mem, index, value) => {
+    mem[index] = applyMaskA(mask, toBinaryString(value));
+    return { mask, mem };
+};
+const decoderV2 = (mask, mem, index, value) => {
     const indices = applyMaskB(mask, toBinaryString(index));
     indices.forEach(i => mem[i] = parseInt(value, 10));
-
     return { mask, mem };
 };
 
-const solveA = path => {
-    const { mem } = linesFromFile(path).reduce(processLineA, { mask: Array(36).fill("X"), mem: {} })
-    return Object.values(mem).reduce((a, b) => a + b, 0);
+const processLine = process => ({ mask, mem }, l) => {
+    const [key, value] = l.split(" = ");
+    return key === "mask" ? { mask: value.split(""), mem } 
+        : process(mask, mem, parseInt(key.slice(4, -1), 10), value);
 };
-const solveB = path => {
-    const { mem } = linesFromFile(path).reduce(processLineB, { mask: Array(36).fill("X"), mem: {} })
+
+const solve = (path, decoder) => {
+    const { mem } = linesFromFile(path).reduce(processLine(decoder), { mask: Array(36).fill("X"), mem: {} })
     return Object.values(mem).reduce((a, b) => a + b, 0);
 };
 
 module.exports =  {
-    processLineA,
-    processLineB,
-    solveA,
-    solveB,
+    processLine,
+    decoderV1,
+    decoderV2,
+    solve,
 };
