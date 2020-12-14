@@ -78,29 +78,29 @@ describe("Day 14", function () {
         });
     });
 
-    context.skip("A", function () {
+    context("A", function () {
         specify("example", function () {
-            const result = solveA(`${__dirname}/example.txt`);
+            const result = solve(`${__dirname}/example.txt`, decoderV1);
             console.log(result);
             expect(result).to.equal(165);
         });
 
         specify("solution", function () {
-            const result = solveA(`${__dirname}/input.txt`);
+            const result = solve(`${__dirname}/input.txt`, decoderV1);
             console.log(result);
             expect(result).to.equal(6386593869035);
         });
     });
 
-    context.skip("B", function () {
+    context("B", function () {
         specify("example", function () {
-            const result = solveB(`${__dirname}/exampleB.txt`);
+            const result = solve(`${__dirname}/exampleB.txt`, decoderV2);
             console.log(result);
             expect(result).to.equal(208);
         });
 
         specify("solution", function () {
-            const result = solveB(`${__dirname}/input.txt`);
+            const result = solve(`${__dirname}/input.txt`, decoderV2);
             console.log(result);
             expect(result).to.equal(4288986482164);
         });

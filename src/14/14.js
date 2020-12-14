@@ -1,10 +1,10 @@
 const { linesFromFile, powerset } = require("../core.js");
 
 const toBinaryString = x => parseInt(x, 10).toString(2).padStart(36, "0").split("");
-const possibleXs = ns => powerset(ns.map((n, i) => n === "X" ? i : false).filter(x => x !== false));
+const xIndices = ns => ns.map((n, i) => n === "X" ? i : false).filter(x => x !== false)
 
 const applyMaskA = (mask, ns) => parseInt(ns.map((n, i) => mask[i] !== "X" ? mask[i] : n).join(""), 2);
-const applyMaskB = (mask, index) => possibleXs(mask).map(xs => {
+const applyMaskB = (mask, index) => powerset(xIndices(mask)).map(xs => {
     const nextIndex = index.map((n, i) => mask[i] === "0" ? n : mask[i]);
     xs.forEach(x => nextIndex[x] = 1);
     return parseInt(nextIndex.join("").replace(/X/g, 0), 2);
