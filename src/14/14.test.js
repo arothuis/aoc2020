@@ -1,5 +1,5 @@
 const { expect } = require("chai");
-const { processLineA, solveA } = require("./14");
+const { processLineA, processLineB, solveA, solveB } = require("./14");
 
 describe("Day 14", function () {
     context("helpers", function () {
@@ -53,7 +53,7 @@ describe("Day 14", function () {
         });
 
 
-        specify.skip("process line B", function () {
+        specify("process line B", function () {
             const examples = [
                 [
                     { 
@@ -64,10 +64,10 @@ describe("Day 14", function () {
                     { 
                         mask: ["0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "X", "1", "0", "0", "1", "X"],
                         mem: {
-                            26: 42,
-                            27: 42,
-                            58: 42,
-                            59: 42,
+                            26: 100,
+                            27: 100,
+                            58: 100,
+                            59: 100,
                         } 
                     }
                 ],
@@ -92,11 +92,17 @@ describe("Day 14", function () {
         });
     });
 
-    context.skip("B", function () {
+    context("B", function () {
+        specify("example", function () {
+            const result = solveB(`${__dirname}/exampleB.txt`);
+            console.log(result);
+            expect(result).to.equal(208);
+        });
+
         specify("solution", function () {
             const result = solveB(`${__dirname}/input.txt`);
             console.log(result);
-            expect(result).to.equal(0);
+            expect(result).to.equal(4288986482164);
         });
     });
 })
