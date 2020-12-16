@@ -22,7 +22,7 @@ const solveA = path => {
     return filterTickets(requirements, nearby, v => !v.isPossible).flat().reduce((acc, {value}) => acc + value, 0);
 };
 
-// TODO: clean this up
+// TODO: clean this up (extract functions, introduce more intentful naming)
 const solveB = path => {
     const { requirements, nearby, ticket } = parseInstructions(readFileSync(path, "utf-8"));
     const valid = filterTickets(requirements, nearby, v => v.isPossible);
@@ -43,11 +43,11 @@ const solveB = path => {
                 const currentField = options.values().next().value;
                 solved[name] = currentField;
 
-                for (let options of Object.values(fields)) {
-                    options.delete(currentField);
+                for (let optionSet of Object.values(fields)) {
+                    optionSet.delete(currentField);
                     toSolve.delete(name);
                 }
-            };
+            }
         }
     }
 
