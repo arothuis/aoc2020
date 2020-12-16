@@ -56,11 +56,11 @@ describe("Day 16", function () {
         });
     });
 
-    context.skip("B", function () {
+    context("B", function () {
         specify("solution", function () {
             const result = solveB(`${__dirname}/input.txt`);
             console.log(result);
-            expect(result).to.equal(48710);
+            expect(result).to.equal(4381476149273);
         });
     });
 })
