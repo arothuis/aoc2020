@@ -1,5 +1,6 @@
 const { numbersFromFile } = require("../core");
 
+// @TODO optimize, there should be no need for keeping a list of two turns per value
 const solve = (path, max) => {
     const numbers = numbersFromFile(path, ",");
     const spoken = numbers.reduce((a, b, i) => ({...a, [b]: [i + 1]}), {});
